@@ -38,10 +38,10 @@ echo "${TMPLIBS}"
   mkdir "${TMPLIBS}" &&
   mkdir "${TMPAPP}" &&
   mv "${BUILD_DIR}/${APP_BASE}" "${TMPAPP}/$(basename "$APP_BASE")" &&
-  mv "${BUILD_DIR}/${APP_LIBS}" "${TMPLIBS}/$(basename "$APP_LIBS")" &&
+  mv "${BUILD_DIR}/${APP_LIBS}" "${TMPLIBS}/${APP_LIBS}" &&
   rm -rf "${BUILD_DIR}"/* &&
   mv "${TMPAPP}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
-  mv "${TMPLIBS}/$(basename "$APP_LIBS")"/* "${BUILD_DIR}/../"
+  mv "${TMPLIBS}/${APP_LIBS}"/* "${BUILD_DIR}/../"
 )
 
 if [ $? -ne 0 ]; then
