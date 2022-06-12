@@ -56,15 +56,12 @@ do
 done
 
 # ------------------ CHANGE toml file ----------------
-
+cat pyproject.toml
 
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     LIB= $(cat "$lib" 2>/dev/null)
     sed -i "s|${LIB}|just testing stuff|g" pyproject.toml
 done
-
-cat pyproject.toml
-
 exit 1
 
 # ----------------- POETRY ------------------------------------
