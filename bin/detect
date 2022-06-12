@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# BUILD_DIR="$1"
+
+# if [ ! -f "$BUILD_DIR/poetry.lock" ] ; then
+#     exit 1
+# fi
+
+echo "Raider Arts django poetry install monorepo app"
+exit 0

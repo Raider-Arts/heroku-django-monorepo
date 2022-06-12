@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s dotglob
+
+function log() {
+    echo "-----> $*"
+}
+
+function indent() {
+    sed -e 's/^/       /'
+}
+
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+STAGE="$(mktemp -d)"
+
+if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
+  echo "APP_BASE was not set. Aborting" | indent
+  exit 1
+fi
+if [ ! -f "${ENV_DIR}/APP_LIBS" ]; then
+  echo "APP_LIBS was not set. Aborting" | indent
+  exit 1
+fi
+
+
+APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
+APP_LIBS="$(cat "${ENV_DIR}/APP_LIBS")"
+
+(
+  mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
+  rm -rf "${BUILD_DIR}/${APP_BASE}"/* &&
+  mv "${STAGE}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
+)
+
+if [ $? -ne 0 ]; then
+    echo "FAILED to copy APP_BASE directory into place" | indent
+    exit 1
+fi
+
+rm -rf "STAGE"/*
+(
+  mv "${BUILD_DIR}/${APP_LIBS}" "${STAGE}" &&
+  rm -rf "${BUILD_DIR}/${APP_LIBS}"/* &&
+  mv "${STAGE}/$(basename "$APP_BASE")"/* "${BUILD_DIR}/../"
+)
+
+
+if [ $? -ne 0 ]; then
+    echo "FAILED to copy APP_LIBS directory into place" | indent
+    exit 1
+fi
