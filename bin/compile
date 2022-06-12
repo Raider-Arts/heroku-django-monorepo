@@ -59,8 +59,9 @@ done
 PYTOMLSTR= cat "${BUILD_DIR}/pyproject.toml"
 
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
-    LIB= $(cat "$lib" 2>/dev/null)
-    echo "${PYTOMLSTR}" | sed -e "s|${LIB}={.*}|${LIB}={path:\"${BUILD_DIR}/${APP_LIBS}/${LIB}|\"}|g"
+    echo "$lib"
+    # LIB= $(cat "$lib" 2>/dev/null)
+    # echo "${PYTOMLSTR}" | sed -e "s|${LIB}={.*}|${LIB}={path:\"${BUILD_DIR}/${APP_LIBS}/${LIB}|\"}|g"
 done
 exit 1
 
