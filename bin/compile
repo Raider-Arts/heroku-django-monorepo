@@ -14,8 +14,6 @@ BUILD_DIR="$1"
 CACHE_DIR="$2"
 ENV_DIR="$3"
 STAGE="$(mktemp -d)"
-TMPAPP="${STAGE}/TEMP_APP"
-TMPLIBS="${STAGE}/TEMP_LIBS"
 
 if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
   echo "APP_BASE was not set. Aborting" | indent
@@ -28,6 +26,8 @@ fi
 
 APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
 APP_LIBS="$(cat "${ENV_DIR}/APP_LIBS")"
+TMPAPP="${STAGE}/TEMP_APP"
+TMPLIBS="${STAGE}/TEMP_LIBS"
 
 echo "${APP_BASE}"
 echo "${APP_LIBS}"
@@ -41,7 +41,7 @@ echo "${TMPLIBS}"
   mv "${BUILD_DIR}/${APP_LIBS}" "${TMPLIBS}/${APP_LIBS}" &&
   rm -rf "${BUILD_DIR}"/* &&
   mv "${TMPAPP}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
-  mv "${TMPLIBS}/${APP_LIBS}"/* "${BUILD_DIR}/../"
+  mv "${TMPLIBS}"/* "${BUILD_DIR}/../"
 )
 
 if [ $? -ne 0 ]; then
