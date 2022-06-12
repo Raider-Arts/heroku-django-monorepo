@@ -57,13 +57,12 @@ done
 
 # ------------------ CHANGE toml file ----------------
 cat "${BUILD_DIR}/pyproject.toml"
+PYTOMLSTR= $(<config.txt)
 
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     LIB= $(cat "$lib" 2>/dev/null)
-    sed -i "s|${LIB}|just testing stuff|g" "${BUILD_DIR}/pyproject.toml"
+    echo "${PYTOMLSTR}" | sed -e "s|${LIB}={.*}|${LIB}={path:\"${BUILD_DIR}/${APP_LIBS}/${LIB}|\"}|g"
 done
-
-cat "${BUILD_DIR}/pyproject.toml"
 exit 1
 
 # ----------------- POETRY ------------------------------------
