@@ -59,7 +59,7 @@ for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
       echo "Directory does exist!"
     fi
 
-    sed -i -e "s,$(cat "$lib")\s=\s{.*},$(cat "$lib") = {path = \"${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")\"},g" "${BUILD_DIR}/pyproject.toml"
+    sed -i -e "s,$(cat "$lib")\s=\s{.*}, ,g" "${BUILD_DIR}/pyproject.toml"
 done
 
 cat "${BUILD_DIR}/pyproject.toml"
@@ -115,7 +115,12 @@ if [ "${POETRY_EXPORT_DEV_REQUIREMENTS:-0}" != "0" ] ; then
 fi
 
 poetry config virtualenvs.create false --local
+
 poetry update
+
+for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
+poetry add "${APP_LIBS}/$(cat "$lib")"
+done
 # # pip can't handle vcs & editable dependencies when requiring hashes (https://github.com/pypa/pip/issues/4995)
 # # poetry exports local dependencies as editable by default (https://github.com/python-poetry/poetry/issues/897)
 # poetry export -f "$REQUIREMENTS_FILE" "${EXPORT_PARAMETERS[@]}" > "$REQUIREMENTS_FILE.orig"
