@@ -62,7 +62,7 @@ done
 
 cat "${BUILD_DIR}/pyproject.toml"
 
------------------ POETRY ------------------------------------
+# ----------------- POETRY ------------------------------------
 
 BUILDPACK_VARIABLES="DISABLE_POETRY_CREATE_RUNTIME_FILE PYTHON_RUNTIME_VERSION"
 
