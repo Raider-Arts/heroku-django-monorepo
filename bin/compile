@@ -43,6 +43,7 @@ echo "${TMPLIBS}"
   rm -rf "${BUILD_DIR}"/* &&
   mv "${TMPAPP}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
   mv "${TMPLIBS}"/* "${BUILD_DIR}"
+  rm "${BUILD_DIR}/poetry.lock"
 )
 
 if [ $? -ne 0 ]; then
@@ -116,8 +117,8 @@ fi
 
 poetry config virtualenvs.create false --local
 
-log "Updating .lock file"
-poetry update --lock
+log "Installing deps"
+poetry install
 
 log "Installing deps"
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
