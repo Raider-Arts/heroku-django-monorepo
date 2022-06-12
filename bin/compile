@@ -56,16 +56,14 @@ do
 done
 
 # ------------------ CHANGE toml file ----------------
-if ! command -v sed &> /dev/null
-then
-    echo "sed could not be found"
-    exit
-fi
 
-# for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
-#     LIB= $(cat "$env_file" 2>/dev/null)
-#     sed -i "s|sourceString|${myString}destinationString|g" myTextFile.txt
-# done
+
+for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
+    LIB= $(cat "$env_file" 2>/dev/null)
+    sed -i "s|${LIB}|just testing stuff|g" pyproject.toml
+done
+
+cat pyproject.toml
 
 # ----------------- POETRY ------------------------------------
 
