@@ -147,6 +147,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+cd "${BUILD_DIR}"
+
 # ------------------ CHANGE requirements.txt file ----------------
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     echo "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")"
