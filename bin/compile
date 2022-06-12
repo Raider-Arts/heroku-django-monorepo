@@ -28,26 +28,18 @@ fi
 APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
 APP_LIBS="$(cat "${ENV_DIR}/APP_LIBS")"
 
+echo "${APP_BASE}"
+echo "${APP_LIBS}"
+
 (
-  mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-  rm -rf "${BUILD_DIR}/${APP_BASE}"/* &&
-  mv "${STAGE}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
+  mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}/APP" &&
+  mv "${BUILD_DIR}/${APP_LIBS}" "${STAGE}/LIBS" &&
+  rm -rf "${BUILD_DIR}"/* &&
+  mv "${STAGE}/$(basename "$APP_BASE")/APP"/* "${BUILD_DIR}"
+  mv "${STAGE}/$(basename "$APP_BASE")/LIBS"/* "${BUILD_DIR}"
 )
 
 if [ $? -ne 0 ]; then
     echo "FAILED to copy APP_BASE directory into place" | indent
-    exit 1
-fi
-
-rm -rf "STAGE"/*
-(
-  mv "${BUILD_DIR}/${APP_LIBS}" "${STAGE}" &&
-  rm -rf "${BUILD_DIR}/${APP_LIBS}"/* &&
-  mv "${STAGE}/$(basename "$APP_BASE")"/* "${BUILD_DIR}/../"
-)
-
-
-if [ $? -ne 0 ]; then
-    echo "FAILED to copy APP_LIBS directory into place" | indent
     exit 1
 fi
