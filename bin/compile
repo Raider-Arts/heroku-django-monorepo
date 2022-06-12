@@ -152,7 +152,7 @@ cd "${BUILD_DIR}"
 # ------------------ CHANGE requirements.txt file ----------------
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     echo "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")"
-    sed -i -e "s,$(cat "$lib").*;,$(cat "$lib") @ file:///${BUILD_DIR}/"${APP_LIBS}/$(cat "$lib")"\";,g" "$REQUIREMENTS_FILE"
+    sed -i -e "s,$(cat "$lib").*;,$(cat "$lib") @ file://${BUILD_DIR}/"${APP_LIBS}/$(cat "$lib")"\";,g" "$REQUIREMENTS_FILE"
 done
 
 cat "$REQUIREMENTS_FILE"
