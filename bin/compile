@@ -59,7 +59,6 @@ TMPLIBS="${STAGE}/TEMP_LIBS"
 # cat "${BUILD_DIR}/pyproject.toml"
 
 # ----------------- POETRY ------------------------------------
-pushd "${APP_BASE}"
 
 BUILDPACK_VARIABLES="DISABLE_POETRY_CREATE_RUNTIME_FILE PYTHON_RUNTIME_VERSION"
 
@@ -100,7 +99,7 @@ REQUIREMENTS_FILE="requirements.txt"
 
 log "Export $REQUIREMENTS_FILE from Poetry"
 
-cd "$BUILD_DIR"
+cd "${BUILD_DIR}/${APP_DIR}"
 
 EXPORT_PARAMETERS=(--without-hashes --with-credentials)
 
