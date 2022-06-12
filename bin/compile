@@ -15,7 +15,7 @@ CACHE_DIR="$2"
 ENV_DIR="$3"
 STAGE="$(mktemp -d)"
 TMPAPP="${STAGE}/TEMP_APP"
-TMPLIBS ="${STAGE}TEMP_LIBS"
+TMPLIBS="${STAGE}TEMP_LIBS"
 
 if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
   echo "APP_BASE was not set. Aborting" | indent
