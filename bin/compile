@@ -14,6 +14,8 @@ BUILD_DIR="$1"
 CACHE_DIR="$2"
 ENV_DIR="$3"
 STAGE="$(mktemp -d)"
+TMPAPP="${STAGE}/TEMP_APP"
+TMPLIBS ="${STAGE}TEMP_LIBS"
 
 if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
   echo "APP_BASE was not set. Aborting" | indent
@@ -24,22 +26,25 @@ if [ ! -f "${ENV_DIR}/APP_LIBS" ]; then
   exit 1
 fi
 
-
 APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
 APP_LIBS="$(cat "${ENV_DIR}/APP_LIBS")"
 
 echo "${APP_BASE}"
 echo "${APP_LIBS}"
+echo "${TMPAPP}"
+echo "${TMPLIBS}"
 
 (
-  mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}/APP" &&
-  mv "${BUILD_DIR}/${APP_LIBS}" "${STAGE}/LIBS" &&
+  mkdir "${TMPLIBS}" &&
+  mkdir "${TMPAPP}" &&
+  mv "${BUILD_DIR}/${APP_BASE}" "${TMPAPP}" &&
+  mv "${BUILD_DIR}/${APP_LIBS}" "${TMPLIBS}" &&
   rm -rf "${BUILD_DIR}"/* &&
-  mv "${STAGE}/$(basename "$APP_BASE")/APP"/* "${BUILD_DIR}"
-  mv "${STAGE}/$(basename "$APP_BASE")/LIBS"/* "${BUILD_DIR}"
+  mv "${STAGE}/${TMPAPP}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
+  mv "${STAGE}/${TMPLIBS}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
 )
 
 if [ $? -ne 0 ]; then
-    echo "FAILED to copy APP_BASE directory into place" | indent
+    echo "FAILED to copy directories into place" | indent
     exit 1
 fi
