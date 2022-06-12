@@ -64,7 +64,7 @@ done
 # ------------------ CHANGE toml file ----------------
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     echo "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")"
-    sed -i -e "s,$(cat "$lib")\s=\s{.*},$(cat "$lib") = {path = \"${APP_LIBS}/$(cat "$lib")\"},g" "${BUILD_DIR}/pyproject.toml"
+    sed -i -e "s,$(cat "$lib")\s=\s{.*},$(cat "$lib") = {path = \"${pwd}/${APP_LIBS}/$(cat "$lib")\"},g" "${BUILD_DIR}/pyproject.toml"
 done
 
 cat "${BUILD_DIR}/pyproject.toml"
