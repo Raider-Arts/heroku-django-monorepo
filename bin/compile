@@ -99,7 +99,7 @@ REQUIREMENTS_FILE="requirements.txt"
 
 log "Export $REQUIREMENTS_FILE from Poetry"
 
-cd "${BUILD_DIR}/${APP_DIR}"
+cd "${BUILD_DIR}/${APP_BASE}"
 
 EXPORT_PARAMETERS=(--without-hashes --with-credentials)
 
