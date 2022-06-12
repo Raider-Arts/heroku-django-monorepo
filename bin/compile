@@ -41,7 +41,7 @@ echo "${TMPLIBS}"
   mv "${BUILD_DIR}/${APP_LIBS}" "${TMPLIBS}/$(basename "$APP_LIBS")" &&
   rm -rf "${BUILD_DIR}"/* &&
   mv "${TMPAPP}/$(basename "$APP_BASE")"/* "${BUILD_DIR}"
-  mv "${TMPLIBS}/$(basename "$APP_LIBS")"/* "../${BUILD_DIR}"
+  mv "${TMPLIBS}/$(basename "$APP_LIBS")"/* "..${BUILD_DIR}"
 )
 
 if [ $? -ne 0 ]; then
