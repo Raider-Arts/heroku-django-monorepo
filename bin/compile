@@ -119,7 +119,7 @@ if [ "${POETRY_EXPORT_DEV_REQUIREMENTS:-0}" != "0" ] ; then
     EXPORT_PARAMETERS+=(--dev)
 fi
 
-poetry update --lock
+poetry install
 # pip can't handle vcs & editable dependencies when requiring hashes (https://github.com/pypa/pip/issues/4995)
 # poetry exports local dependencies as editable by default (https://github.com/python-poetry/poetry/issues/897)
 poetry export -f "$REQUIREMENTS_FILE" "${EXPORT_PARAMETERS[@]}" > "$REQUIREMENTS_FILE.orig"
