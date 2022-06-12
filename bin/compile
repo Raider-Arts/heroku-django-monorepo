@@ -59,7 +59,7 @@ done
 
 
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
-    LIB= $(cat "$env_file" 2>/dev/null)
+    LIB= $(cat "$lib" 2>/dev/null)
     sed -i "s|${LIB}|just testing stuff|g" pyproject.toml
 done
 
