@@ -54,12 +54,12 @@ fi
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
     echo "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")"
     
-    if [ ! -d "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")" ]; then
+    if [ -d "${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")" ]; then
       # Take action if $DIR exists. #
-      echo "Directory does not exist!"
+      echo "Directory does exist!"
     fi
 
-    sed -i -e "s,$(cat "$lib")\s=\s{.*},$(cat "$lib") = {path = \"$(pwd)/${APP_LIBS}/$(cat "$lib")\"},g" "${BUILD_DIR}/pyproject.toml"
+    sed -i -e "s,$(cat "$lib")\s=\s{.*},$(cat "$lib") = {path = \"${BUILD_DIR}/${APP_LIBS}/$(cat "$lib")\"},g" "${BUILD_DIR}/pyproject.toml"
 done
 
 cat "${BUILD_DIR}/pyproject.toml"
