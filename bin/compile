@@ -48,3 +48,15 @@ if [ $? -ne 0 ]; then
     echo "FAILED to copy directories into place" | indent
     exit 1
 fi
+
+for entry in "${BUILD_DIR}"/*
+do
+  echo "$entry"
+done
+
+echo "-----------"
+
+for entry in "${BUILD_DIR}/../"/*
+do
+  echo "$entry"
+done
