@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
 shopt -s dotglob
 
 function log() {
@@ -10,7 +9,6 @@ function log() {
 function indent() {
     sed -e 's/^/       /'
 }
-
 
 BUILD_DIR="$1"
 CACHE_DIR="$2"
