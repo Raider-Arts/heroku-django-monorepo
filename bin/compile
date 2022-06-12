@@ -117,7 +117,7 @@ fi
 poetry config virtualenvs.create false --local
 
 log "Updating .lock file"
-poetry update
+poetry update --lock
 
 log "Installing deps"
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
