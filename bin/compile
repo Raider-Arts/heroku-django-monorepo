@@ -116,8 +116,10 @@ fi
 
 poetry config virtualenvs.create false --local
 
+log "Updating .lock file"
 poetry update
 
+log "Installing deps"
 for lib in "$ENV_DIR"/RAIDER_POETRY_LIB_* ; do
 poetry add "${APP_LIBS}/$(cat "$lib")"
 done
