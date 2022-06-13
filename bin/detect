@@ -8,5 +8,5 @@ set -euo pipefail
 #     exit 1
 # fi
 
-echo "Raider Arts django poetry install monorepo app"
+echo "Raider Arts Django monorepo"
 exit 0
